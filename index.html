@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>James' Corner of the Web</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <center>
+        <h1>J A M E S ' &nbsp;&nbsp; H O M E P A G E</h1>
+
+        <marquee id="mainMarquee" behavior="alternate" scrollamount="4">
+            <span class="blinking" id="countdownText"></span>
+        </marquee>
+
+        <p style="text-align: center; margin-top: -10px; margin-bottom: 20px;">
+            <button id="marqueeToggleButton" onclick="toggleMarquee()" class="retro-button continue-button" style="margin: 0; padding: 5px 10px; font-size: 8pt;">Pause Marquee</button>
+        </p>
+
+        <p>
+            <span style="font-size: 16pt;">
+                Welcome to my little corner of the World Wide Web.
+            </span>
+        </p>
+
+        <div class="content-box">
+            <h2>Who Am I?</h2>
+            <p>
+                Hey, I'm James, a future <span style="color: #00FFFF;">software developer!</span> I love creating websites with <a href="#" id="wixLink">Wix</a> and creating apps with AI (Artificial Intelligence). This is how I get stuff done fast!
+            </p>
+            <p>
+                I'm all about the latest trends. You can check out my <a href="#projects">PROJECTS</a> below if you dare!
+            </p>
+        </div>
+
+        <div class="content-box">
+            <h2>My Interests (WIP)</h2>
+            <p>
+                I am interested in the following cool things:
+            </p>
+            <ul style="list-style-type: square; color: #FFFFFF;">
+                <li><span class="blinking">HTML</span> (HyperText Markup Language!)</li>
+                <li><span class="blinking">JavaScript</span> (The scripting power behind the web!)</li>
+                <li>Web Development (Building the future one tag at a time!)</li>
+            </ul>
+        </div>
+
+        <div class="content-box" id="projects">
+            <h2><a name="projects"></a>Current Projects (Under Construction!)</h2>
+            <div class="gif-container">
+                <img id="constructionGif" src="construction.gif" alt="Under Construction GIF" class="under-construction-gif">
+            </div>
+            <p style="text-align: center; margin-bottom: 5px;">
+                <button id="gifToggleButton" onclick="toggleGifAnimation()" class="retro-button cancel-button" style="margin: 0; padding: 5px 10px; font-size: 8pt;">Pause Animation</button>
+            </p>
+            <p>
+                I'm currently very busy coding **loads** of different websites for my friends. I have several top-secret HTML projects in the works. When they are ready, I will put links to the ZIP files right here!
+            </p>
+            <p>
+                I am also trying to get my **guestbook** working. Check back soon!
+            </p>
+            
+            <h3 style="color: #FF00FF; text-align: center; font-size: 18pt; margin-top: 25px; margin-bottom: 5px; text-decoration: underline;">
+                Star this open-source web project on GitHub.
+            </h3>
+            <p style="text-align: center; margin-bottom: 5px;">
+                <a class="github-button" href="https://github.com/manchesterjames-cpu/jamescorner" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star manchesterjames-cpu/jamescorner on GitHub">Star</a>
+            </p>
+        </div>
+
+        <div class="footer">
+            <hr style="border-color: #00FF00;">
+            <p style="font-size: 8pt; text-align: center;">
+                Visitor Counter
+                <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=a161dd42b73d71671f14360b502b3cc1057b23d0'></script>
+                <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1406160/t/3"></script>
+                <br>
+                [ <a href="#" onclick="showStatsModal(); return false;" style="color: #00FFFF;">View more detailed stats</a> ]
+            </p>
+            <p style="margin-top: 10px;">
+                <a href="#" onclick="showHostingModal(); return false;" style="color: #00FFFF;">How is this page hosted?</a>
+                &nbsp;|&nbsp;
+                <a href="#" onclick="showCreditsModal(); return false;" style="color: #00FFFF;">Credits</a>
+            </p>
+            <p style="margin-top: 5px;">
+                [ <a href="#" id="viewSourceLink">View Source Code on GitHub</a> ]
+            </p>
+            <p>
+                Last updated: October 12 2025
+            </p>
+            <p>
+                &copy; 2025 James Theakston. All rights reserved. GeoCities not responsible for content.
+            </p>
+        </div>
+
+    </center>
+    
+    <div id="retroModalOverlay" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color: #FF00FF; border-bottom: 2px solid #FF00FF;">WARNING: Leaving Retro World!</h2>
+            <p>
+                You are about to click a link to an external, modern site. Do you really wish to leave the safe, 
+                low-bandwidth environment of James's Homepage for the vast, confusing modern internet?
+            </p>
+            <div style="text-align: center; margin-top: 15px;">
+                <button onclick="hideWarningModal()" class="retro-button cancel-button">Stay Here</button>
+                <button id="continueButton" onclick="continueToExternalLink()" class="retro-button continue-button">Continue</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="thanksModalOverlay" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color: #00FFFF; border-bottom: 2px solid #00FFFF;">Transferring Data...</h2>
+            <p style="text-align: center; font-size: 16pt; margin-bottom: 15px; color: #FFFFFF;">
+                Thanks for visiting!
+            </p>
+            <div style="text-align: center; margin-bottom: 15px;">
+                <span class="loading-spinner"></span>
+            </div>
+            <p style="text-align: center; font-size: 10pt; color: #808080;">
+                &copy; 2025 James Theakston
+            </p>
+        </div>
+    </div>
+
+    <div id="hostingModalOverlay" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color: #00FF00; border-bottom: 2px solid #00FF00;">Hosting Configuration</h2>
+            <p style="text-align: center; color: #FFFFFF;">
+                This page is hosted using modern, high-speed technologies (which James knows nothing about).
+            </p>
+            <p style="text-align: center; font-size: 16pt; margin-bottom: 15px; color: #FFFF00;">
+                Cloudflare Pages
+            </p>
+            <div style="text-align: center;">
+                <img src="cloudflare.png" 
+                     alt="Cloudflare Logo" 
+                     class="hosting-logo">
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <button onclick="hideHostingModal()" class="retro-button continue-button">Close [X]</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="creditsModalOverlay" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color: #FF00FF; border-bottom: 2px solid #FF00FF;">Website Credits</h2>
+            <p><strong>Design & Inspiration:</strong></p>
+            <ul style="list-style-type: disc; color: #FFFFFF; padding-left: 20px;">
+                <li>GeoCities and early 90s Web Design</li>
+                <li>Neon, blinking, and "Under Construction" aesthetics</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Technology & Assets:</strong></p>
+            <ul style="list-style-type: disc; color: #FFFFFF; padding-left: 20px;">
+                <li>HTML & Vanilla JavaScript</li>
+                <li><a href="https://github.com/manchesterjames-cpu/jamescorner" target="_blank" style="color: #00FFFF;">Open Source on GitHub</a></li>
+                <li><a href="https://buttons.github.io/" target="_blank" style="color: #00FFFF;">GitHub Buttons</a> (for Star button)</li>
+                <li><a href="http://www.freevisitorcounters.com" target="_blank" style="color: #00FFFF;">Free Visitor Counters</a></li>
+                <li><a href="https://giphy.com" target="_blank" style="color: #00FFFF;">Giphy</a> (for GIF asset)</li>
+                <li><strong>Gemini</strong> (The AI Assistant behind the code)</li>
+            </ul>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="hideCreditsModal()" class="retro-button continue-button">Awesome!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="statsModalOverlay" style="display:none;" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color: #00FF00; border-bottom: 2px solid #00FF00;">Detailed Stats (Only for Webmasters!)</h2>
+            <p style="text-align: center; color: #FFFFFF; font-size: 10pt; margin-bottom: 20px;">
+                Check out the cool, graphical counter for true web 2.0 viewing.
+            </p>
+            <p style="text-align: center;">
+                <a href='http://www.freevisitorcounters.com' style="color: #00FFFF; text-decoration: underline;">free counters</a> 
+                <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=a161dd42b73d71671f14360b502b3cc1057b23d0'></script>
+                <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1406160/t/1"></script>
+            </p>
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="hideStatsModal()" class="retro-button continue-button">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
