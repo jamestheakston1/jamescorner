@@ -4,7 +4,199 @@
     <title>James' Corner of the Web</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #000080; 
+            color: #FFFF00; 
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30pt;
+            color: #FF00FF; 
+            border: 5px solid #00FFFF; 
+            padding: 10px;
+            display: inline-block;
+            background-color: #000000;
+            word-break: break-word; 
+        }
+
+        h2 {
+            color: #00FF00; 
+            border-bottom: 2px dashed #00FF00;
+            padding-bottom: 5px;
+            font-size: 14pt;
+        }
+
+        .content-box {
+            background-color: #000000; 
+            border-top: 4px solid #FFFFFF;
+            border-left: 4px solid #FFFFFF;
+            border-bottom: 4px solid #808080;
+            border-right: 4px solid #808080;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        a {
+            color: #FF0000; 
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #800080; 
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #FFFFFF;
+        }
+
+        .blinking {
+            animation: blinker 1s linear infinite;
+            font-weight: bold;
+            color: #FF00FF;
+        }
+        @keyframes blinker {
+            55% { opacity: 0; }
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 8pt;
+            color: #808080;
+        }
+        
+        .gif-container {
+            text-align: center;
+            margin: 10px auto 5px;
+        }
+        .under-construction-gif {
+            width: 150px; 
+            height: auto;
+            border: 3px solid #FF00FF;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        marquee {
+            border: 1px solid #FF00FF;
+            padding: 5px;
+            margin-bottom: 15px;
+            background-color: #330033;
+            color: #FFFFFF;
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background-color: #000000;
+            color: #FFFFFF;
+            border: 5px solid #00FFFF; 
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 10px 10px #FF00FF; 
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .retro-button {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 8px 15px;
+            border: 3px solid;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+            transition: background-color 0.1s;
+        }
+
+        .cancel-button {
+            background-color: #FF0000;
+            color: #FFFF00;
+            border-color: #FFFF00;
+        }
+
+        .cancel-button:hover {
+            background-color: #800000;
+        }
+
+        .continue-button {
+            background-color: #00FF00;
+            color: #000000;
+            border-color: #000000;
+        }
+
+        .continue-button:hover {
+            background-color: #008000;
+            color: #FFFFFF;
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #FF00FF; 
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hosting-logo {
+            width: 150px;
+            height: auto;
+            background-color: #FFFFFF; 
+            padding: 5px;
+            border: 2px dashed #FF00FF;
+            max-width: 100%;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px; 
+            }
+            h1 {
+                font-size: 20pt; 
+                border: 3px solid #00FFFF; 
+                padding: 5px;
+                word-wrap: break-word; 
+            }
+            marquee {
+                font-size: 10pt; 
+            }
+            .content-box {
+                margin-left: 5px;
+                margin-right: 5px;
+                padding: 10px;
+            }
+            .retro-button {
+                font-size: 10pt;
+                padding: 6px 12px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -88,7 +280,7 @@
                 [ <a href="#" id="viewSourceLink">View Source Code on GitHub</a> ]
             </p>
             <p>
-                Last updated: October 12 2025
+                Last updated: October 13 2025
             </p>
             <p>
                 &copy; 2025 James Theakston. All rights reserved. GeoCities not responsible for content.
@@ -186,7 +378,132 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const ORIGINAL_GIF_SRC = "construction.gif";
+        const PAUSED_GIF_SRC = "https://placehold.co/150x150/000000/FFFFFF?text=PAUSED";
+        let isGifPaused = false; 
+        let isMarqueeTicking = true; 
+        let targetExternalUrl = ''; 
+
+        function showWarningModal(url, displayUrl) {
+            targetExternalUrl = url;
+            document.getElementById('retroModalOverlay').style.display = 'flex';
+            document.getElementById('continueButton').textContent = `Continue (${displayUrl})`;
+        }
+
+        function hideWarningModal() {
+            document.getElementById('retroModalOverlay').style.display = 'none';
+        }
+        
+        function showThanksModal() {
+            document.getElementById('thanksModalOverlay').style.display = 'flex';
+        }
+
+        function hideThanksModal() {
+            document.getElementById('thanksModalOverlay').style.display = 'none';
+        }
+        
+        function showHostingModal() {
+            document.getElementById('hostingModalOverlay').style.display = 'flex';
+        }
+
+        function hideHostingModal() {
+            document.getElementById('hostingModalOverlay').style.display = 'none';
+        }
+        
+        function showCreditsModal() {
+            document.getElementById('creditsModalOverlay').style.display = 'flex';
+        }
+
+        function hideCreditsModal() {
+            document.getElementById('creditsModalOverlay').style.display = 'none';
+        }
+
+        function showStatsModal() {
+            document.getElementById('statsModalOverlay').style.display = 'flex';
+        }
+
+        function hideStatsModal() {
+            document.getElementById('statsModalOverlay').style.display = 'none';
+        }
+
+        function continueToExternalLink() {
+            hideWarningModal();
+            showThanksModal();
+            
+            setTimeout(() => {
+                if (targetExternalUrl) {
+                    window.open(targetExternalUrl, '_blank'); 
+                }
+                hideThanksModal();
+                targetExternalUrl = ''; 
+            }, 2000); 
+        }
+
+        function toggleGifAnimation() {
+            const gif = document.getElementById('constructionGif');
+            const button = document.getElementById('gifToggleButton');
+
+            if (!gif || !button) return;
+
+            if (!isGifPaused) {
+                gif.src = PAUSED_GIF_SRC;
+                button.textContent = 'Play Animation';
+                isGifPaused = true;
+            } else {
+                gif.src = ORIGINAL_GIF_SRC;
+                button.textContent = 'Pause Animation';
+                isGifPaused = false;
+            }
+        }
+
+        function toggleMarquee() {
+            const marquee = document.getElementById('mainMarquee');
+            const button = document.getElementById('marqueeToggleButton');
+            
+            if (!marquee || !button) return;
+
+            if (isMarqueeTicking) {
+                marquee.stop(); 
+                button.textContent = 'Play Marquee';
+                isMarqueeTicking = false;
+            } else {
+                marquee.start();
+                button.textContent = 'Pause Marquee';
+                isMarqueeTicking = true;
+            }
+        }
+
+        function updateMarqueeCountdown() {
+            const marqueeSpan = document.getElementById('countdownText');
+            
+            if (marqueeSpan) {
+                marqueeSpan.textContent = '[!!] RIP WINDOWS 10 2015-2025 [!!]';
+            }
+        }
+
+        window.onload = function() {
+            const githubUrl = 'https://github.com/manchesterjames-cpu/jamescorner';
+
+            const wixLink = document.getElementById('wixLink');
+            if (wixLink) {
+                wixLink.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    showWarningModal('https://www.wix.com', 'https://www.wix.com');
+                });
+            }
+            
+            const viewSourceLink = document.getElementById('viewSourceLink');
+            if (viewSourceLink) {
+                viewSourceLink.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    showWarningModal(githubUrl, 'https://github.com');
+                });
+            }
+
+            updateMarqueeCountdown();
+        };
+    </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>
